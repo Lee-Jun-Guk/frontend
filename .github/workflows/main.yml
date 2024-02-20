@@ -27,4 +27,4 @@ jobs:
           sudo docker login -u ddarahakit2023 -p Dkagh1234!
           sudo docker push ddarahakit2023/frontend:latest
           sudo docker-compose -f /home/ubuntu/web.yml pull
-          sudo docker-compose -f /home/ubuntu/web.yml up --force-recreate --build
+          sudo docker-compose -f /home/ubuntu/web.yml up -d --force-recreate --build
