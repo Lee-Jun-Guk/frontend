@@ -3,33 +3,24 @@ name: frontend devops
 on:
   push:
     branches: [ main ]
-    
+
+
 jobs:
   deploy:
     name: frontend test
     runs-on: ubuntu-latest
 
     steps:
-    - name: get code from github
-      uses: appleboy/ssh-action@v1.0.3
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Use Node.js
+      uses: actions/setup-node@v3
       with:
-        host: ${{ secrets.REMOTE_HOST }}
-        username: ${{ secrets.REMOTE_USER }}
-        key: ${{ secrets.SSH_KEY }}
-        port: ${{ secrets.REMOTE_PORT }}
-        script: |
-          sudo rm -rf frontend
-          sudo git clone https://github.com/ddarahakit2023/frontend
-          cd frontend
-          sudo npm i
-          sudo npm run build
-          sudo docker build --tag ddarahakit2023/frontend:latest .
-          sudo docker login -u ddarahakit2023 -p Dkagh1234!
-          sudo docker push ddarahakit2023/frontend:latest
-          sudo docker-compose -f /home/ubuntu/web.yml pull
-          sudo docker-compose -f /home/ubuntu/web.yml up -d --force-recreate --build
+        node-version: '20.x'
+    - run: npm run build
+    
     - name: 테스트 결과를 PR에 코멘트로 등록합니다
       uses: EnricoMi/publish-unit-test-result-action@v1
-      if: always()
       with:
         files: 'test-results/TEST-*.xml'

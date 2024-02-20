@@ -1,10 +1,15 @@
 const {Builder, By} = require('selenium-webdriver');
- 
-var exec = require( "child_process" ).exec;
+const chrome = require('selenium-webdriver/chrome');
 
+var exec = require( "child_process" ).exec;
+const screen = {
+    width: 640,
+    height: 480
+  };
 (async function example() {
     let driver = await new Builder()
     .forBrowser('chrome')
+    .setChromeOptions(new chrome.Options().addArguments('--headless').windowSize(screen))
     .build();
     await driver.get('https://ohou.se/users/sign_in?redirect_to=%2F');
 
@@ -20,10 +25,10 @@ var exec = require( "child_process" ).exec;
 
     const profile_img = await driver.findElements(By.className('css-xnm8en'));
     if(profile_img[0] == null) {
-        console.log("로그인 실패");
-        exec("echo 로그인 성공 > test-results/TEST-login.xml");
+        exec("echo 0 > test-results/TEST-login.xml");
     } else {
-        console.log("로그인 성공");
-        exec("echo 로그인 성공 > test-results/TEST-login.xml");
+        exec("echo 1 > test-results/TEST-login.xml");
     }
+    driver.quit();
+
 })();
