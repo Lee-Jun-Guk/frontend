@@ -22,10 +22,14 @@ jobs:
           sudo git clone https://github.com/ddarahakit2023/frontend
           cd frontend
           sudo npm i
-          export VUE_APP_BACKEND_URL=13.125.53.32
           sudo npm run build
           sudo docker build --tag ddarahakit2023/frontend:latest .
           sudo docker login -u ddarahakit2023 -p Dkagh1234!
           sudo docker push ddarahakit2023/frontend:latest
           sudo docker-compose -f /home/ubuntu/web.yml pull
           sudo docker-compose -f /home/ubuntu/web.yml up -d --force-recreate --build
+    - name: 테스트 결과를 PR에 코멘트로 등록합니다
+      uses: EnricoMi/publish-unit-test-result-action@v1
+      if: always()
+      with:
+        files: 'test-results/TEST-*.xml'
