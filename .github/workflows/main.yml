@@ -3,9 +3,8 @@ name: frontend devops
 on:
   push:
     branches: [ main ]
-    
-permissions: write-all
 
+permissions: write-all
 
 jobs:
   deploy:
@@ -22,6 +21,7 @@ jobs:
         node-version: '20.x'
     - run: npm i
     - run: npm run build
+    - run: npm test
     
     - name: result
       uses: EnricoMi/publish-unit-test-result-action@v1
