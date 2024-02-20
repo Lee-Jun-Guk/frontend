@@ -3,6 +3,8 @@ name: frontend devops
 on:
   push:
     branches: [ main ]
+    
+permissions: write-all
 
 
 jobs:
@@ -21,7 +23,7 @@ jobs:
     - run: npm i
     - run: npm run build
     
-    - name: 테스트 결과를 PR에 코멘트로 등록합니다
+    - name: result
       uses: EnricoMi/publish-unit-test-result-action@v1
       with:
         files: 'test-results/*.xml'
