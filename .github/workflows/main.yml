@@ -22,6 +22,7 @@ jobs:
           sudo git clone https://github.com/ddarahakit2023/frontend
           cd frontend
           sudo npm i
+          export VUE_APP_BACKEND_URL=13.125.53.32
           sudo npm run build
           sudo docker build --tag ddarahakit2023/frontend:latest .
           sudo docker login -u ddarahakit2023 -p Dkagh1234!
