@@ -20,7 +20,7 @@
                         <a href="/login/member">로그인해봐라</a>
                     </li>
                     <li v-show="isLoggedIn">
-                        <a @click="logout()">로그아웃</a>
+                        <a @click="logout()">로그아웃하자</a>
                     </li>
                     <li v-show="isLoggedIn">
                         <a href="#">마이 페이지</a>
